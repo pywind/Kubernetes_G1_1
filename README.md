@@ -21,6 +21,7 @@ sudo apt install \
 - Add Docker’s official GPG key:
 ```
 curl -fsSL hhttps://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 ```
 - Sử dụng lệnh sau đây để thiết lập kho lưu trữ ổn định:
 
@@ -36,8 +37,7 @@ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubun
 
 
 sudo apt update
-sudo apt install -y docker-ce
-
+sudo apt-get install docker-ce docker-ce-cli containerd.io
 ```
 
 Note: Nếu gặp lỗi không có tài nguyên hoặc đang bị sử dụng :
@@ -78,10 +78,12 @@ Tiếp theo:
 cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
 br_netfilter
 EOF
+
 cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
 net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
 EOF
+
 sudo sysctl --system
 ```
 
@@ -89,6 +91,8 @@ sudo sysctl --system
 
 - Tắt swap
 ```
+docker info | grep Cgroup
+sudo swapoff -a
 sudo sed -i '/ swap / s/^\(.*\)$/#\1/g' /etc/fstab
 sudo swapoff -a
 ```
