@@ -20,7 +20,6 @@ sudo apt install \
 ```
 - Add Docker’s official GPG key:
 ```
-curl -fsSL hhttps://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 ```
 - Sử dụng lệnh sau đây để thiết lập kho lưu trữ ổn định:
