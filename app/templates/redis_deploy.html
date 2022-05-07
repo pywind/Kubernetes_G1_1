@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triển khai Redis</title>
+    <link rel="stylesheet" href="{{url_for('static',filename = 'index.css')}}">
+</head>
+<body class="bg_redis">
+    <h1 class="txt_title">Redis DEPLOYMENT</h1>
+    <table border="1" class="table1">
+        <tr>
+            <th colspan="1">Name</th>
+			<th colspan="1">Namespace</th>
+			<th colspan="1">Revision</th>
+			<th colspan="1">Updated</th>
+			<th colspan="1">Status</th>
+			<th colspan="1">Chart</th>
+			<th colspan="1">App Version</th>
+        </tr>
+        <tr>
+        	{% for row in mydata %}
+        		{% for column in row %}
+        			<td>{{column}}</td>
+        		{% endfor %}
+        	{% endfor %}
+        </tr>
+    </table>
+</body>
+</html>
+

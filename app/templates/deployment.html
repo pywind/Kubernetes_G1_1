@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triển khai app</title>
+    <link rel="stylesheet" href="{{url_for('static',filename = 'index.css')}}">
+</head>
+<body class="bg_deploy">
+  <h1 class="txt_title">Triển khai ứng dụng trên minikube</h1>
+    <h4>Sử dụng trình quản lý gói helm để deploy 2 ứng dụng redis và spark</h4>
+    <div class="container">
+        <p><h3>Redis</h3></p>
+        <form action="/deploy_redis" method="POST">
+            <input type="submit" name="submit_button" value="Deploy redis using Helm" class="btn_action"></input>
+            <input type="submit" name="submit_button" value="Delete redis application using Helm" class="btn_action"></input>
+        </form>
+    </div>
+
+    <div class="container">
+        <p><h3>Spark</h3></p>
+        <form action="/deploy_spark" method="POST">
+            <input type="submit" name="submit_button" value="Deploy spark using Helm" class="btn_action"></input>
+            <input type="submit" name="submit_button" value="Delete spark application using Helm" class="btn_action"></input>
+        </form>        
+    </div>
+</body>
+</html>

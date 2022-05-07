@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"ale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{url_for('static',filename = 'index.css')}}">
+
+</head>
+<body>
+    <h1 class="txt_title">Xin chào mừng bạn đến với kubernetes</h1>
+
+    <img src="{{url_for('static',filename = 'img/index.png')}}" alt="" class="bg_image">
+    <div class="btn_group">
+        <form action="/deploy_apps" method="POST">
+            <input type="submit" name="submit_button" value="Start cluster" class="btn_action"></input>
+            <input type="submit" name="submit_button" value="Stop cluster" class="btn_action"></input>
+            <input type="submit" name="submit_button" value="Delete cluster" class="btn_action"></input>
+        </form>
+    </div>
+</body>
+</html>

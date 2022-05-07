@@ -1,0 +1,60 @@
+Install docker:
+sudo yum update
+sudo yum install git nano curl wget unzip
+sudo amazon-linux-extras install docker
+sudo service docker start
+sudo usermod -a -G docker ec2-user
+sudo chkconfig docker on
+
+sudo reboot
+
+sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+
+sudo chmod +x /usr/local/bin/docker-compose
+
+Install Kubectl:
+curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin/kubectl
+
+Install minikube:
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 \
+  && chmod +x minikube
+
+sudo mkdir -p /usr/local/bin/
+sudo install minikube /usr/local/bin/
+
+minikube start
+
+minikube delete
+
+Install Helm:
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+
+Install Helm (If there is error about sha checksum):
+git clone https://github.com/helm/helm.git
+cp helm/scripts/get-helm-3 get-helm.sh
+chmod 700 get-helm.sh
+./get-helm.sh
+
+Helm add repo:
+
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm repo add stable https://charts.helm.sh/stable
+
+Helm install Redis:
+
+helm install redis bitnami/redis
+
+Helm install Spark:
+
+helm install spark bitnami/spark
+
+Helm install Hadoop:
+helm install \
+    --set yarn.nodeManager.resources.limits.memory=4096Mi \
+    --set yarn.nodeManager.replicas=1 \
+    stable/hadoop --generate-name
