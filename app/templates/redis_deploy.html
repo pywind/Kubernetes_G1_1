@@ -24,7 +24,7 @@
         <tr>
             {%  for i in range(0,mydata|length) %}
                 <tr>
-                {% set url ='/deploy_redis?app=' + mydata[i][0] %}
+                {% set url ='/delete_deploy?app=' + mydata[i][0] %}
                 {% for column in mydata[i] %}
                     <td>{{column}}</td>
                 {% endfor %}

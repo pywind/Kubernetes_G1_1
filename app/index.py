@@ -15,12 +15,13 @@ def index():
     return render_template('index.html')
 
 # add deploy new app
-@app.route('/deploy', methods=['POST','GET'])
+@app.route('/deploy_option', methods=['POST','GET'])
 def app_deployment():
     if request.method == 'POST':
         if request.form['application'] is not None:
             my_app = request.form['application']
-            deploy_str = f"helm install {my_app} bitnami/{my_app}"
+            deploy_str = 'helm install {} bitnami/{}'.format(my_app, my_app)
+            print(deploy_str)
             output = os.system(deploy_str)
 
             #render list deploy
@@ -39,17 +40,17 @@ def app_deployment():
 @app.route('/delete_deploy', methods=['POST','GET'])
 def delete_deployment():
     name_app = request.args.get('app')
-    output = os.system(f'helm delete {name_app}')
+    output = os.system("helm delete {}".format(name_app))
+    print(output)
+    return render_template('deployment.html')
+#delete all deployment
+@app.route('/delete_all', methods=['POST','GET'])
+def delete_all_deployment():
+    output = os.system("")
+    print(output)
     return render_template('deployment.html')
 
-def redis_deployment():
-    if request.method == 'POST':
-        if request.form['application'] is not None:
-            myData = request.form['application']
-            m = [[f"helm install {myData} bitnami/{myData}"]]
-            return render_template('redis_deploy.html', mydata = m)
-    else:
-        return render_template('index.html')
+
 @app.route('/deploy_apps', methods=['POST','GET'])
 def vmd_app():
     if request.method == 'POST':
