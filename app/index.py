@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 from flask import Flask, render_template, redirect, url_for, request
 import os
 import subprocess
@@ -65,6 +66,22 @@ def spark_deployment():
         elif request.form['submit_button'] == 'Delete spark application using Helm':
             output = os.system('helm delete spark')
             return render_template('deployment.html')
+    else:
+        return render_template('deployment.html')
+
+@app.route('/deploy', methods=['POST','GET'])
+def deployment():
+    if request.method == 'POST':
+        if request.form['application'] != NULL:
+            myData = request.form['application']
+            list = os.popen('helm ls').readlines()
+            matrix = []
+            for i in list:
+                ls  = i.replace(" ", "").split('\t')
+                ls[len(ls)-1] = ls[len(ls)-1][-2]
+                matrix.append(ls)
+            print(matrix)
+            return render_template('redis_deploy.html', mydata = matrix[1:len(matrix)])
     else:
         return render_template('deployment.html')
 

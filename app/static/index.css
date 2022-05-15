@@ -1,11 +1,16 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
+
 .txt_title,
-h4,
+h3,
 .container {
     text-align: center;
     color: white;
     margin-bottom: 40px;
 }
 
+body {
+  font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+}
 .bg_image {
     display: block;
     margin-left: auto;
@@ -22,17 +27,13 @@ h4,
 }
 
 
-.trangmodau{
-    text-align: center;
-}
-
 
 .bg_redis {
     background-image: url(./img/Jupiter.jpg);
     background-size: cover;
 }
 .bg_deploy {
-    background-image: url(./img/Jupiter.jpg);
+    background-image: url("./img/Jupiter.jpg");
     background-size: cover;
 }
 
@@ -90,20 +91,170 @@ h4,
   color: rgba(0, 0, 0, 0.65);
   transform: translateY(0);
 }
-
-
-.table1{
-    margin-left: 250px;
-    font-size: 20px;
-    padding: 20px;
+.btn {
+  background-color: rgb(255, 30, 30);
+  border: none;
+  border-radius: 0.5em;
+  color: white;
+  padding: 12px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  
+}
+.btn:hover {
+  background-color: rgb(156, 110, 110);
 }
 
-.table2{
-    margin-left: 250px;
-    font-size: 20px;
-    padding: 20px;
+.table1 {
+  border-radius: 5px;
+  margin-left: 300px;
+  font-size: 20px;
+  font-weight: normal;
+  border-collapse: collapse;
+  border-radius: 0.5em;
+  overflow: hidden;
+  width: 60%;
+  max-width: 100%;
+  white-space: nowrap;
+  background-color: white;
+}
+
+.table1 td, .table1 th {
+  text-align: center;
+  padding: 5px;
+}
+
+.table1 td {
+  border-right: 1px solid #070707;
+  font-size: 15px;
+}
+
+.table1 th {
+  color: #ffffff;
+  background: #000000;
 }
 
 
+.table1 thead th:nth-child(odd) {
+  color: #ffffff;
+  background: #324960;
+}
+
+.table1 tr:nth-child(even) {
+  background: #F8F8F8;
+}
 
 
+.autocomplete {
+    /*the container must be positioned relative:*/
+    position: relative;
+    display: inline-block;
+  }
+  input {
+    border: 1px solid transparent;
+    background-color: #f1f1f1;
+    padding: 10px;
+    font-size: 16px;
+  }
+  input[type=text] {
+    background-color: #f1f1f1;
+    width: 100%;
+  }
+
+  .autocomplete-items {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    /*position the autocomplete items to be the same width as the container:*/
+    top: 100%;
+    left: 0;
+    right: 0;
+  }
+  .autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+  }
+
+  #search {
+    display: inline-block;
+
+    margin: 10px auto;
+    overflow: auto;
+    -moz-box-shadow: #555 0 0 8px;
+    -webkit-box-shadow: #555 0 0 8px;
+    -o-box-shadow: #555 0 0 8px;
+    box-shadow: #555 0 0 8px;
+  }
+  .autocomplete-items div:hover {
+    /*when hovering an item:*/
+    background-color: #e9e9e9;
+  }
+  .autocomplete-active {
+    /*when navigating through the items using the arrow keys:*/
+    background-color: DodgerBlue !important;
+    color: #ffffff;
+  }
+
+  .search {
+    width: 500px;
+    height: 40px;
+    margin: auto;
+    border-radius: .25rem;
+    background: rgba(255, 255, 255, 0.2);
+    
+  }
+  .search input {
+    width: 370px;
+    padding: 10px 5px;
+    float: left;
+    border: 0;
+    background: transparent;
+    border-radius: 0 3px 3px 0;
+  }
+  .search input:focus {
+    outline: 0;
+    background: transparent;
+  }
+  .search button {
+    position: relative;
+    float: right;
+    padding: 0;
+    cursor: pointer;
+    height: 40px;
+    width: 120px;
+    background: transparent;
+    border-left: 1px solid #fff;
+    background-color: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: .25rem;
+    box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+    box-sizing: border-box;
+    color: rgba(0, 0, 0, 0.85);
+    font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    justify-content: center;
+  }
+  .search button:hover,
+  .search button:focus {
+    border-color: rgba(0, 0, 0, 0.15);
+    box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+    color: rgba(0, 0, 0, 0.65);
+  }
+  
+  
+  .search button:active {
+    background-color: #F0F0F1;
+    border-color: rgba(0, 0, 0, 0.15);
+    box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+    color: rgba(0, 0, 0, 0.65);
+    transform: translateY(0);
+  }
+
+#btn_del {
+  background-color: #ff604b;
+}

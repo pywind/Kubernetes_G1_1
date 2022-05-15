@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,24 +7,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Triển khai app</title>
     <link rel="stylesheet" href="{{url_for('static',filename = 'index.css')}}">
+    <script src="{{url_for('static',filename = 'index.js')}}"></script>
 </head>
 <body class="bg_deploy">
   <h1 class="txt_title">Triển khai ứng dụng trên minikube</h1>
-    <h4>Sử dụng trình quản lý gói helm để deploy 2 ứng dụng redis và spark</h4>
-    <div class="container">
-        <p><h3>Redis</h3></p>
-        <form action="/deploy_redis" method="POST">
-            <input type="submit" name="submit_button" value="Deploy redis using Helm" class="btn_action"></input>
-            <input type="submit" name="submit_button" value="Delete redis application using Helm" class="btn_action"></input>
-        </form>
-    </div>
+    <h3>Sử dụng trình quản lý gói helm để deploy ứng dụng</h3>
 
     <div class="container">
-        <p><h3>Spark</h3></p>
-        <form action="/deploy_spark" method="POST">
-            <input type="submit" name="submit_button" value="Deploy spark using Helm" class="btn_action"></input>
-            <input type="submit" name="submit_button" value="Delete spark application using Helm" class="btn_action"></input>
-        </form>        
+        <br>
+        <form action="/deploy_redis" method="POST">
+            <input type="submit" name="submit_button" value="Show all applications" class="btn_action"></input>
+            <input type="submit" name="submit_button" value="Delete all applications" class="btn_action" id ="btn_del"></input>
+        </form>
     </div>
+    <div class="wrapper">
+        <!--Make sure the form has the autocomplete function switched off:-->
+        <form class="search" autocomplete="on" action="/deploy" method="post">
+            <div class="autocomplete" >
+            <input id="myInput" type="text" name="application" placeholder=" Search applications..." >
+            </div>
+            <button>Deploy</button> 
+        </form>
+    </div>
+    <script>
+        autocomplete(app);
+    </script>
 </body>
 </html>

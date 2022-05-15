@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{url_for('static',filename = 'index.css')}}">
 </head>
 <body class="bg_redis">
-    <h1 class="txt_title">Redis DEPLOYMENT</h1>
+    <h1 class="txt_title">DEPLOYMENT</h1>
     <table border="1" class="table1">
         <tr>
             <th colspan="1">Name</th>
@@ -18,13 +18,18 @@
 			<th colspan="1">Status</th>
 			<th colspan="1">Chart</th>
 			<th colspan="1">App Version</th>
+			<th colspan="1">Action</th>
+
         </tr>
         <tr>
-        	{% for row in mydata %}
-        		{% for column in row %}
-        			<td>{{column}}</td>
-        		{% endfor %}
-        	{% endfor %}
+            {% for row in mydata %}
+                <tr>
+                {% for column in row %}
+                    <td>{{column}}</td>
+                {% endfor %}
+                <td><button class="btn"><i class="fa fa-trash"></i></button></td>
+            </tr>
+        {% endfor %}
         </tr>
     </table>
 </body>
