@@ -14,6 +14,42 @@ def RunCommand(command):
 def index():
     return render_template('index.html')
 
+# add deploy new app
+@app.route('/deploy', methods=['POST','GET'])
+def app_deployment():
+    if request.method == 'POST':
+        if request.form['application'] is not None:
+            my_app = request.form['application']
+            deploy_str = f"helm install {my_app} bitnami/{my_app}"
+            output = os.system(deploy_str)
+
+            #render list deploy
+            list = os.popen('helm ls').readlines()
+            matrix = []
+            for i in list:
+                ls  = i.replace(" ", "").split('\t')
+                ls[len(ls)-1] = ls[len(ls)-1][-2]
+                matrix.append(ls)
+
+            return render_template('redis_deploy.html', mydata = matrix[1:len(matrix)])
+    else:
+        return render_template('index.html')
+
+# add delete app
+@app.route('/delete_deploy', methods=['POST','GET'])
+def delete_deployment():
+    name_app = request.args.get('app')
+    output = os.system(f'helm delete {name_app}')
+    return render_template('deployment.html')
+
+def redis_deployment():
+    if request.method == 'POST':
+        if request.form['application'] is not None:
+            myData = request.form['application']
+            m = [[f"helm install {myData} bitnami/{myData}"]]
+            return render_template('redis_deploy.html', mydata = m)
+    else:
+        return render_template('index.html')
 @app.route('/deploy_apps', methods=['POST','GET'])
 def vmd_app():
     if request.method == 'POST':
@@ -33,7 +69,7 @@ def vmd_app():
 def redis_deployment():
     if request.method == 'POST':
         if request.form['submit_button'] == 'Show all applications':
-            output = os.system('helm repo add bitnami https://charts.bitnami.com/bitnami')
+            #output = os.system('helm repo add bitnami https://charts.bitnami.com/bitnami')
             output = os.system('helm install redis bitnami/redis')
             list = os.popen('helm ls').readlines()
             matrix = []
@@ -53,7 +89,7 @@ def redis_deployment():
 def spark_deployment():
     if request.method == 'POST':
         if request.form['submit_button'] == 'Deploy spark using Helm':
-            output = os.system('helm repo add bitnami https://charts.bitnami.com/bitnami')
+            #output = os.system('helm repo add bitnami https://charts.bitnami.com/bitnami')
             output = os.system('helm install spark bitnami/spark')
             list = os.popen('helm ls').readlines()
             matrix = []

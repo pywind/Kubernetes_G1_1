@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Triển khai Redis</title>
+    <title>Deploy application</title>
     <link rel="stylesheet" href="{{url_for('static',filename = 'index.css')}}">
 </head>
 <body class="bg_redis">
@@ -22,12 +22,13 @@
 
         </tr>
         <tr>
-            {% for row in mydata %}
+            {%  for i in range(0,mydata|length) %}
                 <tr>
-                {% for column in row %}
+                {% set url ='/deploy_redis?app=' + mydata[i][0] %}
+                {% for column in mydata[i] %}
                     <td>{{column}}</td>
                 {% endfor %}
-                <td><button class="btn"><i class="fa fa-trash"></i></button></td>
+            <td> <form action={{url}} method="post"><button class="btn"><i class="fa fa-trash"></i></button></form> </td>
             </tr>
         {% endfor %}
         </tr>
