@@ -1,4 +1,4 @@
-from asyncio.windows_events import NULL
+#from asyncio.windows_events import NULL
 from flask import Flask, render_template, redirect, url_for, request
 import os
 import subprocess
@@ -32,7 +32,7 @@ def vmd_app():
 @app.route('/deploy_redis', methods=['POST','GET'])
 def redis_deployment():
     if request.method == 'POST':
-        if request.form['submit_button'] == 'Deploy redis using Helm':
+        if request.form['submit_button'] == 'Show all applications':
             output = os.system('helm repo add bitnami https://charts.bitnami.com/bitnami')
             output = os.system('helm install redis bitnami/redis')
             list = os.popen('helm ls').readlines()
@@ -72,7 +72,7 @@ def spark_deployment():
 @app.route('/deploy', methods=['POST','GET'])
 def deployment():
     if request.method == 'POST':
-        if request.form['application'] != NULL:
+        if request.form['application'] is not None:
             myData = request.form['application']
             list = os.popen('helm ls').readlines()
             matrix = []
