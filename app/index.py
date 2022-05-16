@@ -18,21 +18,16 @@ def index():
 @app.route('/deploy_option', methods=['POST','GET'])
 def app_deployment():
     if request.method == 'POST':
+        # if form has data then
         if request.form['application'] is not None:
+            # get app name
             my_app = request.form['application']
+            # deploy string
             deploy_str = 'helm install {} bitnami/{}'.format(my_app, my_app)
-            print(deploy_str)
-            output = os.system(deploy_str)
-
-            #render list deploy
-            list = os.popen('helm ls').readlines()
-            matrix = []
-            for i in list:
-                ls  = i.replace(" ", "").split('\t')
-                ls[len(ls)-1] = ls[len(ls)-1][-2]
-                matrix.append(ls)
-
-            return render_template('redis_deploy.html', mydata = matrix[1:len(matrix)])
+            #print(deploy_str)
+            output = os.popen(deploy_str).readlines()
+            output = " ".join(output)
+            return render_template('detail.html', mydata = output)
     else:
         return render_template('index.html')
 
@@ -43,6 +38,8 @@ def delete_deployment():
     output = os.system("helm delete {}".format(name_app))
     print(output)
     return render_template('deployment.html')
+
+
 #delete all deployment
 @app.route('/delete_all', methods=['POST','GET'])
 def delete_all_deployment():
@@ -77,7 +74,7 @@ def show_all_deployment():
                 ls  = i.replace(" ", "").split('\t')
                 ls[len(ls)-1] = ls[len(ls)-1][-2]
                 matrix.append(ls)
-            print(matrix)
+            #print(matrix)
             return render_template('redis_deploy.html', mydata = matrix[1:len(matrix)])
         elif request.form['submit_button'] == 'Delete all applications':
             #output = os.system('helm delete redis')
@@ -85,41 +82,7 @@ def show_all_deployment():
     else:
         return render_template('deployment.html')
 
-@app.route('/deploy_spark', methods=['POST','GET'])
-def spark_deployment():
-    if request.method == 'POST':
-        if request.form['submit_button'] == 'Deploy spark using Helm':
-            #output = os.system('helm repo add bitnami https://charts.bitnami.com/bitnami')
-            output = os.system('helm install spark bitnami/spark')
-            list = os.popen('helm ls').readlines()
-            matrix = []
-            for i in list:
-                ls  = i.replace(" ", "").split('\t')
-                ls[len(ls)-1] = ls[len(ls)-1][-2]
-                matrix.append(ls)
-            print(matrix)
-            return render_template('spark_deploy.html', mydata = matrix[1:len(matrix)])
-        elif request.form['submit_button'] == 'Delete spark application using Helm':
-            output = os.system('helm delete spark')
-            return render_template('deployment.html')
-    else:
-        return render_template('deployment.html')
 
-@app.route('/deploy', methods=['POST','GET'])
-def deployment():
-    if request.method == 'POST':
-        if request.form['application'] is not None:
-            myData = request.form['application']
-            list = os.popen('helm ls').readlines()
-            matrix = []
-            for i in list:
-                ls  = i.replace(" ", "").split('\t')
-                ls[len(ls)-1] = ls[len(ls)-1][-2]
-                matrix.append(ls)
-            print(matrix)
-            return render_template('redis_deploy.html', mydata = matrix[1:len(matrix)])
-    else:
-        return render_template('deployment.html')
 
 if __name__ == "__main__":
     app.run(debug=True,host='0.0.0.0',port=5000)
