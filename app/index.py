@@ -55,23 +55,22 @@ def delete_all_deployment():
 def vmd_app():
     if request.method == 'POST':
         if request.form['submit_button'] == 'Start cluster':
-            output = os.system('minikube start')
+            #output = os.system('minikube start')
             return render_template('deployment.html')
         elif request.form['submit_button'] == 'Stop cluster':
-            output = os.system('minikube stop')
+            #output = os.system('minikube stop')
             return render_template('index.html')
         elif request.form['submit_button'] == 'Delete cluster':
-            output = os.system('minikube delete')
+            #output = os.system('minikube delete')
             return render_template('index.html')
     else:
         return render_template('index.html')
 
-@app.route('/deploy_redis', methods=['POST','GET'])
-def redis_deployment():
+@app.route('/show_all_deploy', methods=['POST','GET'])
+def show_all_deployment():
     if request.method == 'POST':
         if request.form['submit_button'] == 'Show all applications':
             #output = os.system('helm repo add bitnami https://charts.bitnami.com/bitnami')
-            output = os.system('helm install redis bitnami/redis')
             list = os.popen('helm ls').readlines()
             matrix = []
             for i in list:
@@ -80,8 +79,8 @@ def redis_deployment():
                 matrix.append(ls)
             print(matrix)
             return render_template('redis_deploy.html', mydata = matrix[1:len(matrix)])
-        elif request.form['submit_button'] == 'Delete redis application using Helm':
-            output = os.system('helm delete redis')
+        elif request.form['submit_button'] == 'Delete all applications':
+            #output = os.system('helm delete redis')
             return render_template('deployment.html')
     else:
         return render_template('deployment.html')
