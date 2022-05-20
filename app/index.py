@@ -31,6 +31,23 @@ def app_deployment():
     else:
         return render_template('index.html')
 
+# modify app   
+@app.route('/deploy_modify', methods=['POST','GET'])
+def app_deployment():
+    if request.method == 'POST':
+        # if form has data then
+        # get app name
+        my_app = request.args.get('app')
+        # deploy string
+        status_str = 'helm status {} '.format(my_app)
+        list = os.popen('kubectl get rs').readlines()
+        for i in list:
+            print(i)
+        output = os.popen(status_str).readlines()
+        output = " ".join(output)
+        return render_template('detail.html', mydata = output)
+    else:
+        return render_template('index.html')
 # add delete app
 @app.route('/delete_deploy', methods=['POST','GET'])
 def delete_deployment():
@@ -75,7 +92,7 @@ def show_all_deployment():
                 ls[len(ls)-1] = ls[len(ls)-1][-2]
                 matrix.append(ls)
             #print(matrix)
-            return render_template('redis_deploy.html', mydata = matrix[1:len(matrix)])
+            return render_template('deploy.html', mydata = matrix[1:len(matrix)])
         elif request.form['submit_button'] == 'Delete all applications':
             #output = os.system('helm delete redis')
             return render_template('deployment.html')
