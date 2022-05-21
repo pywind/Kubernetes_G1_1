@@ -6,7 +6,7 @@ Nguyễn Hoài Nam 19133037
 
 Nguyễn Vũ Lực   19133034
 
-Cloud Computing
+
 
 # Steps and Commands to install k8s:
 
