@@ -61,7 +61,7 @@ def app_scale():
         my_app = request.args.get('app')
         n_scale = request.form['replicas']
         # deploy string
-        status_str = 'kubectl scale --replicas={} rs/{} '.format(n_scale ,my_app)
+        status_str = 'kubectl autoscale rs {} --max={} '.format(my_app, n_scale)
         ls = os.popen('kubectl describe rs').readlines()
         output = os.popen(status_str).readlines()
         data = '\n'.join(output) + '\n'.join(ls)
