@@ -13,7 +13,8 @@
     <h3>Thay đổi replicas sử dụng kubectl</h3>
     <div class="wrapper">
         <!--Make sure the form has the autocomplete function switched off:-->
-        <form class="search" autocomplete="on" action="/deploy" method="post">
+	{% set url = '/scaling?app=' + app|join('') %}
+	<form class="search" autocomplete="on" action={{url}} method="post">
             <input type="number" name="replicas" value={{number_rs}}>
             <button>Change</button> 
         </form>

@@ -33,22 +33,43 @@ def app_deployment():
 
 # modify app   
 @app.route('/deploy_modify', methods=['POST','GET'])
-def app_deployment():
+def app_modify():
     if request.method == 'POST':
         # if form has data then
         # get app name
         my_app = request.args.get('app')
         # deploy string
         status_str = 'helm status {} '.format(my_app)
-        list = os.popen('kubectl get rs').readlines()
-        for i in list:
-            print(i)
+        ls = os.popen('kubectl get rs').readlines()
+        table = []
+        
+        row = ls[1].split('\t')
+        row[0].split(' ')[0]
+        for i in ls:
+            r = i.split('\t')
+            part = r[0].split(' ')
+            table = [j for j in part if (my_app in j)]
+        print(table[0])
         output = os.popen(status_str).readlines()
         output = " ".join(output)
-        return render_template('detail.html', mydata = output)
+        return render_template('detail.html', mydata = output, app=table[0])
+    else:
+        return render_template('index.html')
+@app.route('/scaling', methods=['POST','GET'])
+def app_scale():
+    if request.method == 'POST':
+        my_app = request.args.get('app')
+        n_scale = request.form['replicas']
+        # deploy string
+        status_str = 'kubectl scale --replicas={} rs/{} '.format(n_scale ,my_app)
+        ls = os.popen('kubectl describe rs').readlines()
+        output = os.popen(status_str).readlines()
+        data = '\n'.join(output) + '\n'.join(ls)
+        return render_template('detail.html', mydata = data, number_rs = n_scale)
     else:
         return render_template('index.html')
 # add delete app
+
 @app.route('/delete_deploy', methods=['POST','GET'])
 def delete_deployment():
     name_app = request.args.get('app')
@@ -60,7 +81,7 @@ def delete_deployment():
 #delete all deployment
 @app.route('/delete_all', methods=['POST','GET'])
 def delete_all_deployment():
-    output = os.system("")
+    output = os.system("kubectl delete --all pods --namespace=default")
     print(output)
     return render_template('deployment.html')
 
@@ -69,13 +90,10 @@ def delete_all_deployment():
 def vmd_app():
     if request.method == 'POST':
         if request.form['submit_button'] == 'Start cluster':
-            #output = os.system('minikube start')
             return render_template('deployment.html')
         elif request.form['submit_button'] == 'Stop cluster':
-            #output = os.system('minikube stop')
             return render_template('index.html')
         elif request.form['submit_button'] == 'Delete cluster':
-            #output = os.system('minikube delete')
             return render_template('index.html')
     else:
         return render_template('index.html')
